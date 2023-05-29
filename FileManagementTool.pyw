@@ -24,6 +24,7 @@ BUTTON_WIDTH = 17
 console_font = Font(family="Consolas", size=11)
 
 master.bind('<Control-c>', lambda event: console.delete(1.0, "end"))
+master.bind('<Control-o>', lambda event: changeDirectory())
 master.bind('<F1>', lambda event: aboutDialog())
 
 try:
