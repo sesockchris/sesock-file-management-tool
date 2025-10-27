@@ -7,12 +7,14 @@ from tkinter.filedialog import askopenfilename
 from tkinter.font import Font 
 import os, shutil, re, string, random, time, hashlib
 from time import sleep
+from datetime import date
+import platform
 
 master = tk.Tk()
-master.title("Sesock File Management Tool v0.0.6")
+master.title("Sesock File Manager")
 left_edge = master.winfo_screenwidth()/3
 top_edge = master.winfo_screenheight()/3
-master.geometry('%dx%d+250+250' %(500, 560))
+master.geometry('%dx%d+250+250' %(700, 560))
 master.resizable(False, False)
 
 regex = '\([^()]*\)'
@@ -46,8 +48,8 @@ tabSettings = ttk.Frame(TAB_CONTROL)
 TAB_CONTROL.add(tabSettings, text="Settings")
 TAB_CONTROL.pack(expand=1, fill="both")
 
-currentDirectory1 = ttk.Label(tabBasicOperations, text="Current Directory: ").place(x=20, y=20)
-directoryText1 = ttk.Label(tabBasicOperations, textvariable=text, foreground="#217346").place(x=130, y=20)
+currentDirectory1 = ttk.Label(tabBasicOperations, text="Current Directory: ").place(x=120, y=20)
+directoryText1 = ttk.Label(tabBasicOperations, textvariable=text, foreground="#217346").place(x=225, y=20)
 currentDirectory2 = ttk.Label(tabAdvancedOperations, text="Current Directory: ").place(x=20, y=20)
 directoryText2 = ttk.Label(tabAdvancedOperations, textvariable=text, foreground="#217346").place(x=130, y=20)
 
@@ -80,10 +82,10 @@ radio_3.grid(row=2, column=0, padx=5, pady=5, sticky="nsew")
 
 #Console
 #console = tkscrolled.ScrolledText(height=13, width=57, foreground='white', background='black', undo=True)
-console = tkscrolled.ScrolledText(height=13, width=57, font=console_font, foreground='white', background='black', undo=True)
-console.place(x=10, y=280)
-console.insert(1.0, "> Sesock File Management Tool [Version 0.0.6]\n")
-console.insert(2.0, "> (c) 2021 Christopher Sesock ")
+console = tkscrolled.ScrolledText(height=15, width=82, font=console_font, foreground='white', background='black', undo=True)
+console.place(x=10, y=250)
+console.insert(1.0, "> Sesock File Management Tool [Version 0.0.6.1]\n")
+console.insert(2.0, "> (c) Chris Sesock " + str(date.today().year))
 
 #Footer
 length_label1 = ttk.Label(text="Files : ", foreground='#d0d5db').place(x=10, y=530)
@@ -91,12 +93,8 @@ length_text = tk.StringVar()
 length_text.set("0")
 length_label = ttk.Label(textvariable=length_text, foreground='#d0d5db').place(x=50, y=530)
 
-# length_label2 = ttk.Label(text="Length : ", foreground='#52565e').place(x=85, y=530)
-# length_text2 = tk.StringVar()
-# length_text2.set("0")
-# length_label2 = ttk.Label(textvariable=length_text2, foreground='#52565e').place(x=140, y=530)
-
-system_label = ttk.Label(text="win32", foreground="#d0d5db").place(x=452, y=530)
+os_name = platform.system()
+system_label = ttk.Label(text=str(os_name), foreground="#d0d5db").place(x=620, y=530)
 
 #Advanced Tab
 regexLabel = ttk.Label(tabAdvancedOperations, text="Regex").place(x=20, y=75)
@@ -112,12 +110,12 @@ parameterEntry.place(x=235, y=100)
 
 #Settings Buttons
 defaultDirectoryLabel = ttk.Label(tabSettings, text="Default Directory:").place(x=30, y=55)
-defaultDirectory = ttk.Entry(tabSettings, width=40)
+defaultDirectory = ttk.Entry(tabSettings, width=70)
 defaultDirectory.place(x=160, y=50)
 defaultDirectory.insert(0, full_directory)
 
 defaultBackupLabel = ttk.Label(tabSettings, text="Default Backup:").place(x=30, y=95)
-defaultBackup = ttk.Entry(tabSettings, width=40)
+defaultBackup = ttk.Entry(tabSettings, width=70)
 defaultBackup.place(x=160, y=90)
 defaultBackup.insert(0, full_directory+'\\backup')
 
@@ -237,7 +235,7 @@ def changeDirectory(event=None):
         console.insert(2.0, "> Operation cancelled\n")
         return 
     full_directory = filename 
-    text.set(filename[-48:])
+    text.set(filename[-65:])
     length_text.set(str(getFileCount()))
     console.insert(2.0, "> Directory successfully changed\n")
 
