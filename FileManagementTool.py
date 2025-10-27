@@ -73,7 +73,7 @@ radio_frame = ttk.LabelFrame(tabBasicOperations, text="Name Schema", padding=(5,
 radio_frame.place(x=350, y=53)
 d = tk.IntVar(value=3)
 # Radiobuttons
-radio_1 = ttk.Radiobutton(radio_frame, text="Integers", variable=d, value=1)
+radio_1 = ttk.Radiobutton(radio_frame, text="Numbers", variable=d, value=1)
 radio_1.grid(row=0, column=0, padx=5, pady=6, sticky="nsew")
 radio_2 = ttk.Radiobutton(radio_frame, text="Hashes", variable=d, value=2)
 radio_2.grid(row=1, column=0, padx=5, pady=5, sticky="nsew")
@@ -216,7 +216,7 @@ def listFiles(event=None):
     files = os.listdir(full_directory)
     console.delete(1.0, 'end')
     counter = 2.0
-    console.insert(1.0, "> Count \tFilename\n")
+    console.insert(1.0, "> Total File Count: " + str(len(files)) +"\n")
     for file in files:
         filename = os.path.splitext(file)[0]
         extension = os.path.splitext(file)[1]
